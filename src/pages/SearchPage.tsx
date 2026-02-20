@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { useSearchMovies } from '@/features/search/hooks/useSearchMovies'
 import { debounce } from '@/shared/lib/debounce'
 import { getImageUrl } from '@/shared/api/raw/client'
@@ -116,38 +116,49 @@ function MovieItem({ movie }: { movie: MovieSummary }) {
         border: '1px solid #333',
       }}
     >
-      {posterUrl ? (
-        <img
-          src={posterUrl}
-          alt={movie.title}
-          style={{ width: 92, height: 138, objectFit: 'cover' }}
-        />
-      ) : (
-        <div
-          style={{
-            width: 92,
-            height: 138,
-            background: '#333',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          No poster
-        </div>
-      )}
-      <div>
-        <h3 style={{ margin: '0 0 4px' }}>{movie.title}</h3>
-        {year && <p style={{ margin: 0, color: '#888' }}>{year}</p>}
-        <p style={{ margin: '4px 0', color: '#aaa' }}>
-          ★ {formatRating(movie.voteAverage)}
-        </p>
-        {movie.overview && (
-          <p style={{ margin: 8, fontSize: 14, maxWidth: 400 }}>
-            {movie.overview.slice(0, 150)}...
-          </p>
+      <Link
+        to={`/movie/${movie.id}`}
+        style={{
+          display: 'flex',
+          gap: 16,
+          flex: 1,
+          textDecoration: 'none',
+          color: 'inherit',
+        }}
+      >
+        {posterUrl ? (
+          <img
+            src={posterUrl}
+            alt={movie.title}
+            style={{ width: 92, height: 138, objectFit: 'cover' }}
+          />
+        ) : (
+          <div
+            style={{
+              width: 92,
+              height: 138,
+              background: '#333',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            No poster
+          </div>
         )}
-      </div>
+        <div>
+          <h3 style={{ margin: '0 0 4px' }}>{movie.title}</h3>
+          {year && <p style={{ margin: 0, color: '#888' }}>{year}</p>}
+          <p style={{ margin: '4px 0', color: '#aaa' }}>
+            ★ {formatRating(movie.voteAverage)}
+          </p>
+          {movie.overview && (
+            <p style={{ margin: 8, fontSize: 14, maxWidth: 400 }}>
+              {movie.overview.slice(0, 150)}...
+            </p>
+          )}
+        </div>
+      </Link>
     </li>
   )
 }

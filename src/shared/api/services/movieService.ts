@@ -1,6 +1,9 @@
 import { tmdbFetch } from '@/shared/api/raw/client'
-import { adaptSearchResults } from '@/shared/api/adapter/movieAdapter'
-import type { MovieSummary } from '@/shared/types/domain'
+import {
+  adaptSearchResults,
+  adaptMovieDetail,
+} from '@/shared/api/adapter/movieAdapter'
+import type { MovieSummary, MovieDetail } from '@/shared/types/domain'
 
 export interface SearchResult {
   movies: MovieSummary[]
@@ -20,4 +23,26 @@ export async function searchMovies(
     signal,
   })
   return adaptSearchResults(raw)
+}
+
+export interface MovieDetailResult {
+  detail: MovieDetail
+  schemaErrors: string[]
+}
+
+export async function getMovieDetailBundle(
+  id: number,
+  signal?: AbortSignal
+): Promise<MovieDetailResult> {
+  const [detailRaw, creditsRaw, videosRaw, reviewsRaw] = await Promise.all([
+    tmdbFetch<unknown>(`/movie/${id}`, { signal }),
+    tmdbFetch<unknown>(`/movie/${id}/credits`, { signal }),
+    tmdbFetch<unknown>(`/movie/${id}/videos`, { signal }),
+    tmdbFetch<unknown>(`/movie/${id}/reviews`, {
+      params: { page: 1 },
+      signal,
+    }),
+  ])
+
+  return adaptMovieDetail(detailRaw, creditsRaw, videosRaw, reviewsRaw)
 }
