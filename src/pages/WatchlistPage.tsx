@@ -8,11 +8,11 @@ import { formatYear, formatRating } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
 
 const SORT_OPTIONS: { value: WatchlistSortOption; label: string }[] = [
-  { value: 'releaseDate-desc', label: '上映時間(新->舊)' },
-  { value: 'rating-desc', label: '評分(高->低)' },
-  { value: 'title-asc', label: '片名(A->Z)' },
-  { value: 'addedAt-desc', label: '加入待看清單時間(新->舊)' },
-  { value: 'addedAt-asc', label: '加入待看清單時間(舊->新)' },
+  { value: 'addedAt-desc', label: '加入時間（新→舊）' },
+  { value: 'addedAt-asc', label: '加入時間（舊→新）' },
+  { value: 'releaseDate-desc', label: '上映時間（新→舊）' },
+  { value: 'rating-desc', label: '評分（高→低）' },
+  { value: 'title-asc', label: '片名（A→Z）' },
 ]
 
 export function WatchlistPage() {
@@ -27,138 +27,69 @@ export function WatchlistPage() {
   const sortedItems = sortWatchlistItems(items, sortOption)
 
   return (
-    <div style={{ padding: 24 }}>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 16,
-          marginBottom: 24,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <h1 style={{ margin: 0, fontSize: 24 }}>待看清單</h1>
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+      <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold text-stone-800">待看清單</h1>
         {items.length > 0 && (
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <label>
-              排序:{' '}
-              <select
-                value={sortOption}
-                onChange={(e) =>
-                  setSortOption(e.target.value as WatchlistSortOption)
-                }
-                style={{ padding: 8, borderRadius: 6, background: '#222' }}
-              >
-                {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          <label htmlFor="watchlist-sort" className="flex items-center gap-2">
+            <span className="text-sm text-stone-600">排序：</span>
+            <select
+              id="watchlist-sort"
+              name="watchlist-sort"
+              value={sortOption}
+              onChange={(e) =>
+                setSortOption(e.target.value as WatchlistSortOption)
+              }
+              className="rounded-lg border border-brown-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+            >
+              {SORT_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </label>
         )}
       </div>
 
       {items.length === 0 ? (
-        <p style={{ color: '#888' }}>
-          你的待看清單是空的。搜尋電影並將它們加入到你的觀看清單中。
-        </p>
+        <div className="rounded-xl border border-brown-200 bg-white p-12 text-center">
+          <p className="text-stone-600">
+            你的待看清單是空的。搜尋電影並將它們加入到你的觀看清單中。
+          </p>
+        </div>
       ) : (
-        <ul
-          style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-            gap: 16,
-          }}
-        >
+        <ul className="grid list-none grid-cols-2 gap-4 p-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {sortedItems.map(({ movie }) => (
             <li
               key={movie.id}
-              style={{
-                border: '1px solid #333',
-                borderRadius: 8,
-                overflow: 'hidden',
-              }}
+              className="group overflow-hidden rounded-xl border border-brown-200 bg-white shadow-sm transition-shadow hover:shadow-md"
             >
-              <Link
-                to={`/movie/${movie.id}`}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <div
-                  style={{
-                    position: 'relative',
-                    aspectRatio: '2/3',
-                    background: '#333',
-                  }}
-                >
+              <Link to={`/movie/${movie.id}`} className="block">
+                <div className="relative aspect-[2/3] overflow-hidden bg-brown-100">
                   {getImageUrl(movie.posterPath, 'w342') ? (
                     <img
                       src={getImageUrl(movie.posterPath, 'w342') ?? ''}
                       alt={movie.title}
                       loading="lazy"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
+                      className="h-full w-full object-cover transition-transform group-hover:scale-105"
                     />
                   ) : (
-                    <div
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#666',
-                      }}
-                    >
-                      No poster
+                    <div className="flex h-full w-full items-center justify-center text-stone-400">
+                      無海報
                     </div>
                   )}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: 8,
-                      right: 8,
-                      padding: '4px 8px',
-                      background: 'rgba(0,0,0,0.8)',
-                      borderRadius: 6,
-                      fontSize: 12,
-                      fontWeight: 500,
-                    }}
-                  >
+                  <div className="absolute bottom-2 right-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-lavender-600">
                     {formatRating(movie.voteAverage)} ★
                   </div>
                 </div>
-                <div
-                  style={{
-                    padding: 12,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    gap: 8,
-                  }}
-                >
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <h3
-                      style={{
-                        margin: '0 0 4px',
-                        fontSize: 14,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
+                <div className="flex items-start justify-between gap-2 p-3">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="truncate font-semibold text-stone-800">
                       {movie.title}
                     </h3>
                     {formatYear(movie.releaseDate) && (
-                      <p style={{ margin: 0, fontSize: 12, color: '#888' }}>
+                      <p className="text-sm text-stone-500">
                         {formatYear(movie.releaseDate)}
                       </p>
                     )}

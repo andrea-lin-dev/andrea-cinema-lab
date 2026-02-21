@@ -21,27 +21,39 @@ export function MovieDetailPage() {
 
   if (Number.isNaN(movieId)) {
     return (
-      <div style={{ padding: 24 }}>
-        <p>無效的電影 ID。</p>
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <div className="rounded-xl border border-brown-200 bg-white p-8 text-center">
+          <p className="text-stone-700">無效的電影 ID。</p>
+        </div>
       </div>
     )
   }
 
   if (isError) {
     return (
-      <div style={{ padding: 24 }}>
-        <p>載入電影失敗：{error?.message}</p>
-        <button type="button" onClick={() => refetch()}>
-          重試
-        </button>
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <div className="rounded-xl border border-brown-200 bg-white p-8 text-center">
+          <p className="text-stone-700">載入電影失敗：{error?.message}</p>
+          <button
+            type="button"
+            onClick={() => refetch()}
+            className="mt-4 rounded-lg bg-lavender-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
+          >
+            重試
+          </button>
+        </div>
       </div>
     )
   }
 
   if (isLoading || !data) {
     return (
-      <div style={{ padding: 24 }}>
-        <p>載入中...</p>
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <div className="animate-pulse space-y-4">
+          <div className="aspect-video w-full rounded-xl bg-brown-100" />
+          <div className="h-8 w-1/3 rounded bg-brown-100" />
+          <div className="h-4 w-2/3 rounded bg-brown-100" />
+        </div>
       </div>
     )
   }
@@ -54,65 +66,42 @@ export function MovieDetailPage() {
     : null
 
   return (
-    <div style={{ padding: 24, maxWidth: 900, margin: '0 auto' }}>
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
       {/* Hero */}
-      <div style={{ marginBottom: 24, position: 'relative' }}>
+      <div className="relative mb-8 overflow-hidden rounded-2xl">
         {backdropUrl && (
           <img
             src={backdropUrl}
             alt=""
-            style={{
-              width: '100%',
-              aspectRatio: '16/9',
-              objectFit: 'cover',
-              borderRadius: 8,
-            }}
+            className="aspect-video w-full object-cover"
           />
         )}
-        <div
-          style={{
-            display: 'flex',
-            gap: 16,
-            marginTop: 16,
-            alignItems: 'flex-end',
-          }}
-        >
+        <div className="absolute inset-0 bg-gradient-to-t from-brown-50 via-brown-50/80 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-4 p-4 sm:flex-row sm:items-end sm:p-6">
           {posterUrl && (
             <img
               src={posterUrl}
               alt={detail.title}
-              style={{
-                width: 120,
-                height: 180,
-                objectFit: 'cover',
-                borderRadius: 8,
-                flexShrink: 0,
-              }}
+              className="hidden h-36 w-24 shrink-0 rounded-lg object-cover shadow-xl sm:block sm:h-48 sm:w-32"
             />
           )}
-          <div style={{ flex: 1 }}>
-            <h1 style={{ margin: '0 0 8px', fontSize: 28 }}>{detail.title}</h1>
+          <div className="flex-1">
+            <h1 className="text-2xl font-bold text-stone-900 sm:text-3xl">
+              {detail.title}
+            </h1>
             {detail.tagline && (
-              <p
-                style={{
-                  margin: '0 0 8px',
-                  fontStyle: 'italic',
-                  color: '#888',
-                }}
-              >
+              <p className="mt-1 text-base italic text-stone-600 sm:text-lg">
                 {detail.tagline}
               </p>
             )}
-            <div
-              style={{ display: 'flex', gap: 16, color: '#888', fontSize: 14 }}
-            >
+            <div className="mt-2 flex flex-wrap gap-4 text-sm text-stone-500">
               {formatYear(detail.releaseDate) && (
                 <span>{formatYear(detail.releaseDate)}</span>
               )}
               {detail.runtime && <span>{formatRuntime(detail.runtime)}</span>}
               <span>★ {formatRating(detail.voteAverage)}</span>
             </div>
-            <div style={{ marginTop: 16 }}>
+            <div className="mt-4">
               <WatchlistButton movie={detail} />
             </div>
           </div>
@@ -120,30 +109,29 @@ export function MovieDetailPage() {
       </div>
 
       {/* Content */}
-      <div style={{ display: 'grid', gap: 24 }}>
-        <div>
+      <div className="grid gap-8 lg:grid-cols-3">
+        <div className="space-y-8 lg:col-span-2">
           {detail.overview && (
-            <section style={{ marginBottom: 24 }}>
-              <h2 style={{ margin: '0 0 8px', fontSize: 18 }}>劇情簡介</h2>
-              <p style={{ margin: 0, color: '#ccc', lineHeight: 1.6 }}>
+            <section>
+              <h2 className="mb-2 text-xl font-semibold text-stone-800">
+                劇情簡介
+              </h2>
+              <p className="text-stone-600 leading-relaxed">
                 {detail.overview}
               </p>
             </section>
           )}
 
           {detail.genres.length > 0 && (
-            <section style={{ marginBottom: 24 }}>
-              <h2 style={{ margin: '0 0 8px', fontSize: 18 }}>類型</h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            <section>
+              <h2 className="mb-2 text-xl font-semibold text-stone-800">
+                類型
+              </h2>
+              <div className="flex flex-wrap gap-2">
                 {detail.genres.map((g) => (
                   <span
                     key={g.id}
-                    style={{
-                      padding: '4px 12px',
-                      background: '#333',
-                      borderRadius: 16,
-                      fontSize: 14,
-                    }}
+                    className="rounded-full bg-lavender-100 px-3 py-1 text-sm text-lavender-600"
                   >
                     {g.name}
                   </span>
@@ -152,72 +140,48 @@ export function MovieDetailPage() {
             </section>
           )}
 
-          <section style={{ marginBottom: 24 }}>
-            <h2 style={{ margin: '0 0 8px', fontSize: 18 }}>預告片</h2>
+          <section>
+            <h2 className="mb-2 text-xl font-semibold text-stone-800">
+              預告片
+            </h2>
             {trailerUrl ? (
-              <div
-                style={{
-                  aspectRatio: '16/9',
-                  overflow: 'hidden',
-                  borderRadius: 8,
-                }}
-              >
+              <div className="aspect-video overflow-hidden rounded-xl">
                 <iframe
                   src={trailerUrl}
                   title="預告片"
-                  style={{ width: '100%', height: '100%', border: 0 }}
+                  className="h-full w-full"
                   allowFullScreen
                 />
               </div>
             ) : (
-              <p style={{ color: '#888' }}>尚無預告片。</p>
+              <p className="rounded-xl border border-brown-200 bg-brown-50 p-6 text-stone-500">
+                尚無預告片。
+              </p>
             )}
           </section>
 
           {detail.reviews.length > 0 && (
-            <section style={{ marginBottom: 24 }}>
-              <h2 style={{ margin: '0 0 8px', fontSize: 18 }}>影評</h2>
-              <div
-                style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
-              >
+            <section>
+              <h2 className="mb-2 text-xl font-semibold text-stone-800">
+                影評
+              </h2>
+              <div className="space-y-4">
                 {detail.reviews.slice(0, 3).map((r) => (
                   <div
                     key={r.id}
-                    style={{
-                      padding: 16,
-                      background: '#222',
-                      borderRadius: 8,
-                    }}
+                    className="rounded-xl border border-brown-200 bg-white p-4"
                   >
-                    <p style={{ margin: '0 0 4px', fontWeight: 600 }}>
-                      {r.author}
-                    </p>
+                    <p className="font-medium text-stone-800">{r.author}</p>
                     {r.rating != null && (
-                      <p
-                        style={{
-                          margin: '0 0 8px',
-                          fontSize: 14,
-                          color: '#aaa',
-                        }}
-                      >
-                        {r.rating}/10
-                      </p>
+                      <p className="text-sm text-lavender-600">{r.rating}/10</p>
                     )}
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: 14,
-                        color: '#888',
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {r.content.slice(0, 300)}
-                      {r.content.length > 300 ? '...' : ''}
+                    <p className="mt-2 line-clamp-4 text-sm text-stone-600">
+                      {r.content}
                     </p>
                   </div>
                 ))}
                 {detail.reviews.length > 3 && (
-                  <p style={{ color: '#666', fontSize: 14 }}>
+                  <p className="text-sm text-stone-500">
                     還有 {detail.reviews.length - 3} 則影評
                   </p>
                 )}
@@ -226,46 +190,27 @@ export function MovieDetailPage() {
           )}
         </div>
 
-        <div>
+        <div className="space-y-8">
           {detail.cast.length > 0 && (
-            <section style={{ marginBottom: 24 }}>
-              <h2 style={{ margin: '0 0 12px', fontSize: 18 }}>演員</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <section>
+              <h2 className="mb-2 text-xl font-semibold text-stone-800">
+                演員
+              </h2>
+              <div className="space-y-2">
                 {detail.cast.slice(0, 15).map((c) => (
-                  <div
-                    key={c.id}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12,
-                    }}
-                  >
+                  <div key={c.id} className="flex items-center gap-3">
                     {c.profilePath ? (
                       <img
                         src={getImageUrl(c.profilePath, 'w92') ?? ''}
                         alt=""
-                        style={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: '50%',
-                          objectFit: 'cover',
-                        }}
+                        className="h-12 w-12 rounded-full object-cover"
                       />
                     ) : (
-                      <div
-                        style={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: '50%',
-                          background: '#333',
-                        }}
-                      />
+                      <div className="h-12 w-12 rounded-full bg-brown-200" />
                     )}
                     <div>
-                      <p style={{ margin: 0, fontWeight: 500 }}>{c.name}</p>
-                      <p style={{ margin: 0, fontSize: 14, color: '#888' }}>
-                        {c.character}
-                      </p>
+                      <p className="font-medium text-stone-800">{c.name}</p>
+                      <p className="text-sm text-stone-500">{c.character}</p>
                     </div>
                   </div>
                 ))}
@@ -275,39 +220,22 @@ export function MovieDetailPage() {
 
           {detail.crew.length > 0 && (
             <section>
-              <h2 style={{ margin: '0 0 12px', fontSize: 18 }}>導演</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <h2 className="mb-2 text-xl font-semibold text-stone-800">
+                導演
+              </h2>
+              <div className="space-y-2">
                 {detail.crew.map((c) => (
-                  <div
-                    key={c.id}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12,
-                    }}
-                  >
+                  <div key={c.id} className="flex items-center gap-3">
                     {c.profilePath ? (
                       <img
                         src={getImageUrl(c.profilePath, 'w92') ?? ''}
                         alt=""
-                        style={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: '50%',
-                          objectFit: 'cover',
-                        }}
+                        className="h-12 w-12 rounded-full object-cover"
                       />
                     ) : (
-                      <div
-                        style={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: '50%',
-                          background: '#333',
-                        }}
-                      />
+                      <div className="h-12 w-12 rounded-full bg-brown-200" />
                     )}
-                    <p style={{ margin: 0, fontWeight: 500 }}>{c.name}</p>
+                    <p className="font-medium text-stone-800">{c.name}</p>
                   </div>
                 ))}
               </div>
@@ -316,8 +244,11 @@ export function MovieDetailPage() {
         </div>
       </div>
 
-      <div style={{ marginTop: 32 }}>
-        <Link to="/" style={{ color: '#646cff', textDecoration: 'none' }}>
+      <div className="mt-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-lavender-600 transition-colors hover:text-lavender-500"
+        >
           ← 返回搜尋電影
         </Link>
       </div>
