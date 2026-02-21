@@ -6,6 +6,7 @@ import type { WatchlistSortOption } from '@/shared/types/domain'
 import { getImageUrl } from '@/shared/api/raw/client'
 import { formatYear, formatRating } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
+import { EmptyState } from '@/shared/ui'
 
 const SORT_OPTIONS: { value: WatchlistSortOption; label: string }[] = [
   { value: 'addedAt-desc', label: '加入時間（新→舊）' },
@@ -53,11 +54,10 @@ export function WatchlistPage() {
       </div>
 
       {items.length === 0 ? (
-        <div className="rounded-xl border border-brown-200 bg-white p-12 text-center">
-          <p className="text-stone-600">
-            你的待看清單是空的。搜尋電影並將它們加入到你的觀看清單中。
-          </p>
-        </div>
+        <EmptyState
+          title="待看清單是空的"
+          description="搜尋電影並將它們加入到你的觀看清單中。"
+        />
       ) : (
         <ul className="grid list-none grid-cols-2 gap-4 p-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {sortedItems.map(({ movie }) => (

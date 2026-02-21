@@ -8,6 +8,7 @@ import {
   formatRating,
 } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
+import { ErrorState } from '@/shared/ui'
 
 export function MovieDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -22,9 +23,7 @@ export function MovieDetailPage() {
   if (Number.isNaN(movieId)) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="rounded-xl border border-brown-200 bg-white p-8 text-center">
-          <p className="text-stone-700">無效的電影 ID。</p>
-        </div>
+        <ErrorState title="無效的電影 ID" message="請檢查網址是否正確。" />
       </div>
     )
   }
@@ -32,16 +31,11 @@ export function MovieDetailPage() {
   if (isError) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="rounded-xl border border-brown-200 bg-white p-8 text-center">
-          <p className="text-stone-700">載入電影失敗：{error?.message}</p>
-          <button
-            type="button"
-            onClick={() => refetch()}
-            className="mt-4 rounded-lg bg-lavender-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
-          >
-            重試
-          </button>
-        </div>
+        <ErrorState
+          title="載入電影失敗"
+          message={error?.message}
+          onRetry={() => refetch()}
+        />
       </div>
     )
   }

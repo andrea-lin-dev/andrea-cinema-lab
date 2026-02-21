@@ -5,6 +5,13 @@ import { debounce } from '@/shared/lib/debounce'
 import { getImageUrl } from '@/shared/api/raw/client'
 import { formatYear, formatRating } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
+import {
+  SearchBar,
+  EmptyState,
+  ErrorState,
+  SkeletonCard,
+  Button,
+} from '@/shared/ui'
 import type { MovieSummary } from '@/shared/types/domain'
 
 export function SearchPage() {
@@ -42,63 +49,46 @@ export function SearchPage() {
   )
 
   const handleSearchSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault()
-      setSearchParams(inputValue.trim() ? { q: inputValue.trim() } : {})
-    },
-    [inputValue, setSearchParams]
+    (value: string) => setSearchParams(value ? { q: value } : {}),
+    [setSearchParams]
   )
 
   if (isError) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="rounded-xl border border-brown-200 bg-white p-8 text-center shadow-sm">
-          <p className="text-stone-700">載入電影失敗：{error?.message}</p>
-          <button
-            type="button"
-            onClick={() => refetch()}
-            className="mt-4 rounded-lg bg-lavender-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
-          >
-            重試
-          </button>
-        </div>
+        <ErrorState
+          title="載入電影失敗"
+          message={error?.message}
+          onRetry={() => refetch()}
+        />
       </div>
     )
   }
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
-      <form onSubmit={handleSearchSubmit} className="mb-6 sm:mb-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <input
-            type="search"
-            value={inputValue}
-            onChange={(e) => handleKeywordChange(e.target.value)}
-            placeholder="搜尋電影..."
-            aria-label="搜尋電影"
-            className="w-full rounded-xl border border-brown-200 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200 sm:max-w-md"
-          />
-          <button
-            type="submit"
-            className="shrink-0 rounded-xl bg-lavender-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
-          >
-            搜尋電影
-          </button>
-        </div>
-      </form>
+      <div className="mb-6 sm:mb-8">
+        <SearchBar
+          value={inputValue}
+          onChange={handleKeywordChange}
+          onSearch={handleSearchSubmit}
+          placeholder="搜尋電影..."
+          submitLabel="搜尋電影"
+        />
+      </div>
 
       {searchKeyword.length < 2 ? (
-        <div className="rounded-xl border border-brown-200 bg-white p-12 text-center">
-          <p className="text-stone-600">請至少輸入 2 個字元進行搜尋</p>
-        </div>
+        <EmptyState title="請至少輸入 2 個字元進行搜尋" />
       ) : isLoading ? (
-        <div className="flex items-center justify-center py-16">
-          <div className="h-10 w-10 animate-spin rounded-full border-2 border-lavender-500 border-t-transparent" />
-        </div>
+        <ul className="grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <li key={i}>
+              <SkeletonCard />
+            </li>
+          ))}
+        </ul>
       ) : movies.length === 0 ? (
-        <div className="rounded-xl border border-brown-200 bg-white p-12 text-center">
-          <p className="text-stone-600">無搜尋結果，請嘗試不同的搜尋詞彙。</p>
-        </div>
+        <EmptyState title="無搜尋結果" description="請嘗試不同的搜尋詞彙。" />
       ) : (
         <>
           <ul className="grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -108,14 +98,14 @@ export function SearchPage() {
           </ul>
           {hasNextPage && (
             <div className="mt-8 flex justify-center">
-              <button
-                type="button"
+              <Button
+                variant="secondary"
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                className="rounded-xl border border-brown-200 bg-white px-6 py-3 text-sm font-medium text-stone-700 transition-colors hover:bg-brown-50 disabled:opacity-50"
+                className="rounded-xl border-brown-200"
               >
                 {isFetchingNextPage ? '載入中...' : '載入更多'}
-              </button>
+              </Button>
             </div>
           )}
         </>
