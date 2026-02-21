@@ -1,7 +1,16 @@
+import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useWatchlistStore } from '@/features/watchlist/store/watchlistStore'
 
 export function Nav() {
   const location = useLocation()
+  const { items, load } = useWatchlistStore()
+
+  useEffect(() => {
+    load()
+  }, [load])
+
+  const count = items.length
 
   return (
     <nav
@@ -21,7 +30,7 @@ export function Nav() {
           fontWeight: location.pathname === '/' ? 600 : 500,
         }}
       >
-        Search
+        搜尋電影
       </Link>
       <Link
         to="/watchlist"
@@ -30,7 +39,20 @@ export function Nav() {
           fontWeight: location.pathname === '/watchlist' ? 600 : 500,
         }}
       >
-        Watchlist
+        待看清單
+        {count > 0 && (
+          <span
+            style={{
+              marginLeft: 6,
+              padding: '2px 6px',
+              borderRadius: 10,
+              background: '#646cff',
+              fontSize: 12,
+            }}
+          >
+            {count}
+          </span>
+        )}
       </Link>
     </nav>
   )

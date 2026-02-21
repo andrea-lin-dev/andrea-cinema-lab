@@ -48,7 +48,14 @@ export interface MovieDetail extends MovieSummary {
   reviews: Review[]
 }
 
+export interface WatchlistItem {
+  movie: MovieSummary
+  addedAt: number
+}
+
 export type WatchlistSortOption =
+  | 'addedAt-desc'
+  | 'addedAt-asc'
   | 'releaseDate-desc'
   | 'rating-desc'
   | 'title-asc'

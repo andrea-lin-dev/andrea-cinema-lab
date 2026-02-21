@@ -1,4 +1,4 @@
-import type { MovieSummary } from '@/shared/types/domain'
+import type { MovieSummary, WatchlistItem } from '@/shared/types/domain'
 import type { WatchlistSortOption } from '@/shared/types/domain'
 import { formatYear } from './formatters'
 
@@ -9,12 +9,38 @@ export function sortMovies(
   return [...movies].sort((a, b) => compareMovies(a, b, option))
 }
 
+export function sortWatchlistItems(
+  items: WatchlistItem[],
+  option: WatchlistSortOption
+): WatchlistItem[] {
+  if (option === 'addedAt-desc') {
+    return sortWatchlistByAddedAt(items, false)
+  }
+  if (option === 'addedAt-asc') {
+    return sortWatchlistByAddedAt(items, true)
+  }
+  return [...items].sort((a, b) => compareMovies(a.movie, b.movie, option))
+}
+
+export function sortWatchlistByAddedAt(
+  items: WatchlistItem[],
+  asc: boolean
+): WatchlistItem[] {
+  return [...items].sort((a, b) => {
+    const diff = a.addedAt - b.addedAt
+    return asc ? diff : -diff
+  })
+}
+
 function compareMovies(
   a: MovieSummary,
   b: MovieSummary,
   option: WatchlistSortOption
 ): number {
   switch (option) {
+    case 'addedAt-desc':
+    case 'addedAt-asc':
+      return 0
     case 'rating-desc':
       return (b.voteAverage ?? 0) - (a.voteAverage ?? 0)
     case 'releaseDate-desc': {

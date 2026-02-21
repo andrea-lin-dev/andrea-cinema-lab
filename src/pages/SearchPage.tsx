@@ -70,7 +70,7 @@ export function SearchPage() {
           aria-label="搜尋電影"
           style={{ padding: 8, width: 300, marginRight: 8 }}
         />
-        <button type="submit">搜尋</button>
+        <button type="submit">搜尋電影</button>
       </form>
 
       {searchKeyword.length < 2 ? (

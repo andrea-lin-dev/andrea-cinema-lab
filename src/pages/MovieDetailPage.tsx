@@ -7,6 +7,7 @@ import {
   formatYear,
   formatRating,
 } from '@/shared/lib/formatters'
+import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
 
 export function MovieDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -110,6 +111,9 @@ export function MovieDetailPage() {
               )}
               {detail.runtime && <span>{formatRuntime(detail.runtime)}</span>}
               <span>★ {formatRating(detail.voteAverage)}</span>
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <WatchlistButton movie={detail} />
             </div>
           </div>
         </div>
