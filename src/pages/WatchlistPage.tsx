@@ -6,6 +6,7 @@ import type { WatchlistSortOption } from '@/shared/types/domain'
 import { getImageUrl } from '@/shared/api/raw/client'
 import { formatYear, formatRating } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
+import { LotteryModal } from '@/features/lottery/components/LotteryModal'
 import { EmptyState } from '@/shared/ui'
 
 const SORT_OPTIONS: { value: WatchlistSortOption; label: string }[] = [
@@ -20,36 +21,47 @@ export function WatchlistPage() {
   const { items, load } = useWatchlistStore()
   const [sortOption, setSortOption] =
     useState<WatchlistSortOption>('addedAt-desc')
+  const [isLotteryOpen, setIsLotteryOpen] = useState(false)
 
   useEffect(() => {
     load()
   }, [load])
 
   const sortedItems = sortWatchlistItems(items, sortOption)
+  const movies = items.map((i) => i.movie)
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
       <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-stone-800">待看清單</h1>
         {items.length > 0 && (
-          <label htmlFor="watchlist-sort" className="flex items-center gap-2">
-            <span className="text-sm text-stone-600">排序：</span>
-            <select
-              id="watchlist-sort"
-              name="watchlist-sort"
-              value={sortOption}
-              onChange={(e) =>
-                setSortOption(e.target.value as WatchlistSortOption)
-              }
-              className="rounded-lg border border-brown-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setIsLotteryOpen(true)}
+              className="rounded-xl bg-lavender-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
             >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </label>
+              🍿 今晚看什麼？抽籤
+            </button>
+            <label htmlFor="watchlist-sort" className="flex items-center gap-2">
+              <span className="text-sm text-stone-600">排序：</span>
+              <select
+                id="watchlist-sort"
+                name="watchlist-sort"
+                value={sortOption}
+                onChange={(e) =>
+                  setSortOption(e.target.value as WatchlistSortOption)
+                }
+                className="rounded-lg border border-brown-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         )}
       </div>
 
@@ -101,6 +113,12 @@ export function WatchlistPage() {
           ))}
         </ul>
       )}
+
+      <LotteryModal
+        isOpen={isLotteryOpen}
+        onClose={() => setIsLotteryOpen(false)}
+        movies={movies}
+      />
     </div>
   )
 }
