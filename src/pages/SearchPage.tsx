@@ -10,7 +10,7 @@ import {
   EmptyState,
   ErrorState,
   SkeletonCard,
-  Button,
+  InfiniteLoaderSentinel,
 } from '@/shared/ui'
 import type { MovieSummary } from '@/shared/types/domain'
 
@@ -96,18 +96,11 @@ export function SearchPage() {
               <MovieItem key={movie.id} movie={movie} />
             ))}
           </ul>
-          {hasNextPage && (
-            <div className="mt-8 flex justify-center">
-              <Button
-                variant="secondary"
-                onClick={() => fetchNextPage()}
-                disabled={isFetchingNextPage}
-                className="rounded-xl border-brown-200"
-              >
-                {isFetchingNextPage ? '載入中...' : '載入更多'}
-              </Button>
-            </div>
-          )}
+          <InfiniteLoaderSentinel
+            onIntersect={() => fetchNextPage()}
+            hasMore={!!hasNextPage}
+            isLoading={isFetchingNextPage}
+          />
         </>
       )}
     </div>
