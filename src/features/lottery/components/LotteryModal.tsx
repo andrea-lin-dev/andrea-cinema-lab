@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { LotteryCarousel } from './LotteryCarousel'
-import { WinnerResultModal } from './WinnerResultModal'
 import type { MovieSummary } from '@/shared/types/domain'
 
 interface LotteryModalProps {
@@ -10,19 +9,9 @@ interface LotteryModalProps {
 }
 
 export function LotteryModal({ isOpen, onClose, movies }: LotteryModalProps) {
-  const [winner, setWinner] = useState<MovieSummary | null>(null)
-  useEffect(() => {
-    if (!isOpen) {
-      queueMicrotask(() => setWinner(null))
-    }
-  }, [isOpen])
-
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (winner) setWinner(null)
-        else onClose()
-      }
+      if (e.key === 'Escape') onClose()
     }
     if (isOpen) {
       document.addEventListener('keydown', handleEscape)
@@ -32,14 +21,14 @@ export function LotteryModal({ isOpen, onClose, movies }: LotteryModalProps) {
       document.removeEventListener('keydown', handleEscape)
       document.body.style.overflow = ''
     }
-  }, [isOpen, onClose, winner])
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/90 p-4"
-      onClick={(e) => e.target === e.currentTarget && !winner && onClose()}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
       aria-labelledby="lottery-title"
@@ -74,15 +63,7 @@ export function LotteryModal({ isOpen, onClose, movies }: LotteryModalProps) {
         </h2>
         <p className="mb-4 text-stone-600">點擊抽籤，讓命運幫你決定</p>
 
-        <LotteryCarousel movies={movies} onWinner={setWinner} />
-
-        {winner && (
-          <WinnerResultModal
-            winner={winner}
-            onClose={() => setWinner(null)}
-            onCloseLottery={onClose}
-          />
-        )}
+        <LotteryCarousel movies={movies} onCloseModal={onClose} />
       </div>
     </div>
   )
