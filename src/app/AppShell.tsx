@@ -22,14 +22,14 @@ export function AppShell({ children }: AppShellProps) {
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link
             to="/"
-            className="text-lg font-bold text-lavender-600 hover:text-lavender-500 sm:text-xl"
+            className="text-sm font-bold text-lavender-600 hover:text-lavender-500 sm:text-xl"
           >
-            Andrea's Cinema Lab
+            AL's Cinema Lab
           </Link>
-          <nav className="flex items-center gap-4 sm:gap-6">
+          <nav className="flex items-center gap-2 sm:gap-6">
             <Link
               to="/"
-              className={`text-sm font-medium transition-colors sm:text-base ${
+              className={`text-xs font-medium transition-colors sm:text-base ${
                 location.pathname === '/'
                   ? 'text-lavender-600'
                   : 'text-stone-600 hover:text-stone-900'
@@ -39,7 +39,7 @@ export function AppShell({ children }: AppShellProps) {
             </Link>
             <Link
               to="/watchlist"
-              className={`relative flex items-center gap-2 text-sm font-medium transition-colors sm:text-base ${
+              className={`relative flex items-center gap-2 text-xs font-medium transition-colors sm:text-base ${
                 location.pathname === '/watchlist'
                   ? 'text-lavender-600'
                   : 'text-stone-600 hover:text-stone-900'
