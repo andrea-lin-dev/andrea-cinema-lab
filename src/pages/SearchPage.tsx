@@ -119,6 +119,7 @@ function MovieItem({ movie }: { movie: MovieSummary }) {
             <img
               src={posterUrl}
               alt={movie.title}
+              loading="lazy"
               className="h-full w-full object-cover transition-transform group-hover:scale-105"
             />
           ) : (
