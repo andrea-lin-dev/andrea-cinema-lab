@@ -16,7 +16,7 @@ export function MovieDetailPage() {
 
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['movie', movieId],
-    queryFn: () => getMovieDetailBundle(movieId),
+    queryFn: ({ signal }) => getMovieDetailBundle(movieId, signal),
     enabled: !Number.isNaN(movieId),
   })
 

@@ -10,7 +10,8 @@ export function useSearchMovies(
 ) {
   const query = useInfiniteQuery({
     queryKey: ['search', keyword, sortOption],
-    queryFn: ({ pageParam }) => searchMovies(keyword, pageParam),
+    queryFn: ({ pageParam, signal }) =>
+      searchMovies(keyword, pageParam, signal),
     initialPageParam: 1,
     getNextPageParam: (last) => {
       if (last.page >= last.totalPages) return undefined
