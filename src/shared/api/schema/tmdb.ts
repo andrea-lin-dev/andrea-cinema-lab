@@ -16,15 +16,17 @@ export const searchMoviesResponseSchema = z.object({
   page: z.number().default(1),
   total_pages: z.number().default(0),
   total_results: z.number().default(0),
-  results: z.array(z.unknown()).transform((arr) => {
-    if (!Array.isArray(arr)) return []
-    return arr
-      .map((item) => {
-        const parsed = movieSummarySchema.safeParse(item)
-        return parsed.success ? parsed.data : null
-      })
-      .filter(Boolean)
-  }),
+  results: z
+    .union([z.array(z.unknown()), z.record(z.string(), z.unknown())])
+    .transform((val) => {
+      if (!Array.isArray(val)) return []
+      return val
+        .map((item) => {
+          const parsed = movieSummarySchema.safeParse(item)
+          return parsed.success ? parsed.data : null
+        })
+        .filter(Boolean)
+    }),
 })
 
 export const genreSchema = z.object({
