@@ -12,12 +12,23 @@ import {
   SkeletonCard,
   InfiniteLoaderSentinel,
 } from '@/shared/ui'
-import type { MovieSummary } from '@/shared/types/domain'
+import type { MovieSummary, WatchlistSortOption } from '@/shared/types/domain'
+
+const SEARCH_SORT_OPTIONS: {
+  value: '' | WatchlistSortOption
+  label: string
+}[] = [
+  { value: '', label: '預設' },
+  { value: 'releaseDate-desc', label: '上映時間（新→舊）' },
+  { value: 'rating-desc', label: '評分（高→低）' },
+  { value: 'title-asc', label: '片名（A→Z）' },
+]
 
 export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const searchKeyword = searchParams.get('q') ?? ''
   const [inputValue, setInputValue] = useState(searchKeyword)
+  const [sortOption, setSortOption] = useState<'' | WatchlistSortOption>('')
 
   useEffect(() => {
     const id = setTimeout(() => setInputValue(searchKeyword), 0)
@@ -38,7 +49,7 @@ export function SearchPage() {
     isError,
     error,
     refetch,
-  } = useSearchMovies(searchKeyword)
+  } = useSearchMovies(searchKeyword, sortOption || undefined)
 
   const handleKeywordChange = useCallback(
     (val: string) => {
@@ -67,14 +78,39 @@ export function SearchPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
-      <div className="mb-6 sm:mb-8">
-        <SearchBar
-          value={inputValue}
-          onChange={handleKeywordChange}
-          onSearch={handleSearchSubmit}
-          placeholder="搜尋電影..."
-          submitLabel="搜尋電影"
-        />
+      <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:gap-6">
+        <div className="min-w-0 flex-1">
+          <SearchBar
+            value={inputValue}
+            onChange={handleKeywordChange}
+            onSearch={handleSearchSubmit}
+            placeholder="搜尋電影..."
+            submitLabel="搜尋電影"
+          />
+        </div>
+        {searchKeyword.length >= 2 && (
+          <label
+            htmlFor="search-sort"
+            className="flex shrink-0 items-center gap-2"
+          >
+            <span className="text-sm text-stone-600">排序：</span>
+            <select
+              id="search-sort"
+              name="search-sort"
+              value={sortOption}
+              onChange={(e) =>
+                setSortOption(e.target.value as '' | WatchlistSortOption)
+              }
+              className="rounded-lg border border-brown-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+            >
+              {SEARCH_SORT_OPTIONS.map((opt) => (
+                <option key={opt.value || 'default'} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
 
       {searchKeyword.length < 2 ? (
