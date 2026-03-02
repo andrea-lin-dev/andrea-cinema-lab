@@ -118,7 +118,7 @@ export function SearchPage() {
       {searchKeyword.length < 2 ? (
         <EmptyState title="請至少輸入 2 個字元進行搜尋" />
       ) : isLoading ? (
-        <ul className="grid list-none grid-cols-2 gap-4 p-0 lg:grid-cols-3">
+        <ul className="grid list-none grid-cols-2 gap-4 p-0 lg:grid-cols-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <li key={i}>
               <SkeletonCard />
@@ -129,7 +129,7 @@ export function SearchPage() {
         <EmptyState title="無搜尋結果" description="請嘗試不同的搜尋詞彙。" />
       ) : (
         <>
-          <ul className="grid list-none grid-cols-2 gap-4 p-0 lg:grid-cols-3">
+          <ul className="grid list-none grid-cols-2 gap-4 p-0 lg:grid-cols-4">
             {movies.map((movie) => (
               <MovieItem key={movie.id} movie={movie} />
             ))}

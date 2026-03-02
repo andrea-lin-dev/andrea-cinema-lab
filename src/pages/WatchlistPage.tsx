@@ -73,7 +73,7 @@ export function WatchlistPage() {
           description="搜尋電影並將它們加入到你的觀看清單中。"
         />
       ) : (
-        <ul className="grid list-none grid-cols-2 gap-4 p-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        <ul className="grid list-none grid-cols-2 gap-4 p-0 lg:grid-cols-4">
           {sortedItems.map(({ movie }) => (
             <li
               key={movie.id}
