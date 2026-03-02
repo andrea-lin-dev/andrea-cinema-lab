@@ -36,7 +36,7 @@ export function WatchlistPage() {
       <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-stone-800">待看清單</h1>
         {items.length > 0 && (
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <button
               type="button"
               onClick={() => setIsLotteryOpen(true)}

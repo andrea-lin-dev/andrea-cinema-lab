@@ -1,73 +1,119 @@
-# React + TypeScript + Vite
+# Andrea's Cinema Lab
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+電影搜尋、待看清單與抽籤選片應用。使用 TMDB API 取得電影資料，支援搜尋、收藏、排序與隨機抽籤決定今晚看什麼。
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| 類別 | 技術 |
+|------|------|
+| Framework | React 19, React Router 7 |
+| Data | TanStack Query, Zustand |
+| Styling | Tailwind CSS v4 |
+| Validation | Zod |
+| Build | Vite 7 |
+| Test | Vitest |
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **搜尋電影**：關鍵字搜尋、分頁載入、排序（預設／上映時間／評分／片名）
+- **待看清單**：加入／移除、多種排序、localStorage 持久化
+- **抽籤**：從待看清單隨機選片，含 focus trap、Escape 關閉
+- **電影詳情**：海報、預告、演員、評論
+- **Design System**：雙主題（紫色·淡咖啡、莫蘭迪綠·淡灰），語意化 token
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18+
+- pnpm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 安裝依賴
+pnpm install
+
+# 建立 .env，設定 TMDB API Key
+echo "VITE_TMDB_API_KEY=your_api_key" > .env
+
+# 開發
+pnpm dev
+
+# 建置
+pnpm build
+
+# 預覽建置結果
+pnpm preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+取得 API Key：<https://www.themoviedb.org/settings/api>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| 指令 | 說明 |
+|------|------|
+| `pnpm dev` | 開發伺服器 |
+| `pnpm build` | 建置生產版本 |
+| `pnpm test` | 執行測試 |
+| `pnpm test:watch` | 監聽模式測試 |
+| `pnpm lint` | ESLint |
+| `pnpm type-check` | TypeScript 型別檢查 |
+
+## Project Structure
+
 ```
+src/
+├── app/                 # 應用殼層（AppShell）
+├── design-system/       # 主題、token、ThemeToggle
+├── features/            # 功能模組
+│   ├── lottery/         # 抽籤 modal、carousel
+│   ├── search/          # useSearchMovies
+│   └── watchlist/       # store、WatchlistButton
+├── pages/               # 頁面元件
+├── shared/
+│   ├── api/             # TMDB client、schema、adapter、service
+│   ├── lib/             # formatters、sortMovies、debounce
+│   ├── types/           # domain types
+│   └── ui/              # 共用 UI 元件
+└── main.tsx
+```
+
+## Technical Highlights
+
+### API Resiliency
+
+- **Schema 防禦**：`union([array, record])` 處理 API 回傳 object 而非 array 的異常，避免 parse fail
+- **schemaErrors**：適配層收集驗證錯誤，dev 模式顯示 fallback badge，prod 可接 Sentry
+
+### Performance
+
+- **Route-based code splitting**：`React.lazy` 分頁載入，減少 initial bundle
+- **AbortSignal**：React Query `signal` 傳遞至 fetch，避免快速輸入時舊請求覆蓋新結果
+- **圖片優化**：`loading="lazy"`、`width`/`height` 減少 CLS
+- **字型**：Google Fonts 僅載入所需字重（400–700）
+
+### Accessibility
+
+- **Lottery Modal**：focus trap、initial focus、Escape 關閉、`role="dialog"`、`aria-modal`
+- **響應式**：`w-full max-w-2xl` 取代 `min-w-[400px]`，小螢幕友善
+
+### Design System
+
+- 語意化 token：`accent-*`（主色）、`neutral-*`（背景／邊框）
+- `data-theme` + CSS variables 切換主題
+- 詳見 [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)
+
+## Testing
+
+核心邏輯單元測試：schema、adapter、formatters、sortMovies。
+
+```bash
+pnpm test
+```
+
+詳見 [docs/TESTING_INTRODUCTION.md](docs/TESTING_INTRODUCTION.md)。
+
+## License
+
+Data © [The Movie Database](https://www.themoviedb.org/).
