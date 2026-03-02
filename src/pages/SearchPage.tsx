@@ -4,6 +4,7 @@ import { useSearchMovies } from '@/features/search/hooks/useSearchMovies'
 import { debounce } from '@/shared/lib/debounce'
 import { getImageUrl } from '@/shared/api/raw/client'
 import { formatYear, formatRating } from '@/shared/lib/formatters'
+import { getFriendlyErrorMessage } from '@/shared/lib/errorMessages'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
 import {
   SearchBar,
@@ -65,12 +66,13 @@ export function SearchPage() {
     [setSearchParams]
   )
 
-  if (isError) {
+  // Full-page error only when no data (initial load failed)
+  if (isError && movies.length === 0) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <ErrorState
-          title="載入電影失敗"
-          message={error?.message}
+          title="無法載入搜尋結果"
+          message={getFriendlyErrorMessage(error)}
           onRetry={() => refetch()}
         />
       </div>
@@ -134,11 +136,22 @@ export function SearchPage() {
               <MovieItem key={movie.id} movie={movie} />
             ))}
           </ul>
-          <InfiniteLoaderSentinel
-            onIntersect={() => fetchNextPage()}
-            hasMore={!!hasNextPage}
-            isLoading={isFetchingNextPage}
-          />
+          {isError && movies.length > 0 ? (
+            <div className="mt-6 flex justify-center">
+              <ErrorState
+                title="無法載入更多"
+                message={getFriendlyErrorMessage(error)}
+                onRetry={() => refetch()}
+                retryLabel="重試載入"
+              />
+            </div>
+          ) : (
+            <InfiniteLoaderSentinel
+              onIntersect={() => fetchNextPage()}
+              hasMore={!!hasNextPage}
+              isLoading={isFetchingNextPage}
+            />
+          )}
         </>
       )}
     </div>

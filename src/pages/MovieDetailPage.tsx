@@ -7,6 +7,7 @@ import {
   formatYear,
   formatRating,
 } from '@/shared/lib/formatters'
+import { getFriendlyErrorMessage } from '@/shared/lib/errorMessages'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
 import { ErrorState } from '@/shared/ui'
 
@@ -32,8 +33,8 @@ export function MovieDetailPage() {
     return (
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <ErrorState
-          title="載入電影失敗"
-          message={error?.message}
+          title="無法載入電影資訊"
+          message={getFriendlyErrorMessage(error)}
           onRetry={() => refetch()}
         />
       </div>
