@@ -6,8 +6,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary:
-    'bg-accent-500 text-white hover:bg-accent-600 focus:ring-accent-200',
+  primary: 'bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-200',
   secondary:
     'border border-neutral-200 bg-white text-stone-700 hover:bg-neutral-50 focus:ring-accent-200',
   ghost:

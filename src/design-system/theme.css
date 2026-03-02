@@ -14,6 +14,7 @@
   --color-accent-200: var(--ds-accent-200);
   --color-accent-500: var(--ds-accent-500);
   --color-accent-600: var(--ds-accent-600);
+  --color-accent-700: var(--ds-accent-700);
 
   --color-neutral-50: var(--ds-neutral-50);
   --color-neutral-100: var(--ds-neutral-100);
@@ -31,6 +32,7 @@
     --ds-accent-200: #d4c4e8;
     --ds-accent-500: #9b8bb4;
     --ds-accent-600: #7d6b94;
+    --ds-accent-700: #5f4d76;
 
     --ds-neutral-50: #f5f2ef;
     --ds-neutral-100: #e8e0d8;
@@ -46,6 +48,7 @@
     --ds-accent-200: #b8c9b8;
     --ds-accent-500: #7a9b7a;
     --ds-accent-600: #5c7a5c;
+    --ds-accent-700: #3d5c3d;
 
     --ds-neutral-50: #f5f5f3;
     --ds-neutral-100: #e8e8e4;

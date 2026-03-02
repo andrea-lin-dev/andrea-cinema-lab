@@ -43,7 +43,7 @@ export function WatchlistButton({
       className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
         inList
           ? 'border border-neutral-200 bg-neutral-50 text-stone-600 hover:bg-neutral-100'
-          : 'bg-accent-500 text-white hover:bg-accent-600'
+          : 'bg-accent-600 text-white hover:bg-accent-700'
       }`}
     >
       {inList ? '已加入待看清單' : '加入待看清單'}

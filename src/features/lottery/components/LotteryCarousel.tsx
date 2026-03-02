@@ -154,7 +154,7 @@ export function LotteryCarousel({
           <button
             type="button"
             onClick={handleReset}
-            className="rounded-xl bg-accent-500 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-accent-600"
+            className="rounded-xl bg-accent-600 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-accent-700"
           >
             重新抽籤
           </button>
@@ -163,7 +163,7 @@ export function LotteryCarousel({
             type="button"
             onClick={pick}
             disabled={isSpinning}
-            className="rounded-xl bg-accent-500 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:bg-accent-600 disabled:pointer-events-none disabled:opacity-70"
+            className="rounded-xl bg-accent-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:bg-accent-700 disabled:pointer-events-none disabled:opacity-70"
           >
             {isSpinning ? '抽籤中...' : '開始抽籤'}
           </button>

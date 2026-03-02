@@ -47,7 +47,7 @@ export function AppShell({ children }: AppShellProps) {
             >
               待看清單
               {count > 0 && (
-                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-500 px-1.5 text-xs font-medium text-white">
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-600 px-1.5 text-xs font-medium text-white">
                   {count}
                 </span>
               )}
@@ -58,7 +58,7 @@ export function AppShell({ children }: AppShellProps) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-neutral-200 py-4 text-center text-sm text-stone-500">
+      <footer className="border-t border-neutral-200 py-4 text-center text-sm text-stone-600">
         <p>Powered by TMDB. Data © The Movie Database.</p>
       </footer>
     </div>

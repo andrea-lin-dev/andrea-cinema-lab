@@ -40,7 +40,7 @@ export function WatchlistPage() {
             <button
               type="button"
               onClick={() => setIsLotteryOpen(true)}
-              className="rounded-xl bg-accent-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+              className="rounded-xl bg-accent-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-700"
             >
               🍿 今晚看什麼？抽籤
             </button>

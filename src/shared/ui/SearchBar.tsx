@@ -36,7 +36,7 @@ export function SearchBar({
         />
         <button
           type="submit"
-          className="shrink-0 rounded-xl bg-accent-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+          className="shrink-0 rounded-xl bg-accent-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-700"
         >
           {submitLabel}
         </button>
