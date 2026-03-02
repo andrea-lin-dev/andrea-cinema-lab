@@ -4,14 +4,14 @@
 
 ## Tech Stack
 
-| 類別 | 技術 |
-|------|------|
-| Framework | React 19, React Router 7 |
-| Data | TanStack Query, Zustand |
-| Styling | Tailwind CSS v4 |
-| Validation | Zod |
-| Build | Vite 7 |
-| Test | Vitest |
+| 類別       | 技術                     |
+| ---------- | ------------------------ |
+| Framework  | React 19, React Router 7 |
+| Data       | TanStack Query, Zustand  |
+| Styling    | Tailwind CSS v4          |
+| Validation | Zod                      |
+| Build      | Vite 7                   |
+| Test       | Vitest                   |
 
 ## Features
 
@@ -51,13 +51,13 @@ pnpm preview
 
 ### Scripts
 
-| 指令 | 說明 |
-|------|------|
-| `pnpm dev` | 開發伺服器 |
-| `pnpm build` | 建置生產版本 |
-| `pnpm test` | 執行測試 |
-| `pnpm test:watch` | 監聽模式測試 |
-| `pnpm lint` | ESLint |
+| 指令              | 說明                |
+| ----------------- | ------------------- |
+| `pnpm dev`        | 開發伺服器          |
+| `pnpm build`      | 建置生產版本        |
+| `pnpm test`       | 執行測試            |
+| `pnpm test:watch` | 監聽模式測試        |
+| `pnpm lint`       | ESLint              |
 | `pnpm type-check` | TypeScript 型別檢查 |
 
 ## Project Structure
