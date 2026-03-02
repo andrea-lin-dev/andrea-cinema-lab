@@ -12,6 +12,7 @@ import {
   SkeletonCard,
   InfiniteLoaderSentinel,
 } from '@/shared/ui'
+import { ThemeToggle } from '@/design-system/ThemeToggle'
 import type { MovieSummary, WatchlistSortOption } from '@/shared/types/domain'
 
 const SEARCH_SORT_OPTIONS: {
@@ -88,6 +89,7 @@ export function SearchPage() {
             submitLabel="搜尋電影"
           />
         </div>
+        <ThemeToggle />
         {searchKeyword.length >= 2 && (
           <label
             htmlFor="search-sort"
@@ -101,7 +103,7 @@ export function SearchPage() {
               onChange={(e) =>
                 setSortOption(e.target.value as '' | WatchlistSortOption)
               }
-              className="rounded-lg border border-brown-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+              className="rounded-lg border border-neutral-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
             >
               {SEARCH_SORT_OPTIONS.map((opt) => (
                 <option key={opt.value || 'default'} value={opt.value}>
@@ -148,9 +150,9 @@ function MovieItem({ movie }: { movie: MovieSummary }) {
   const year = formatYear(movie.releaseDate)
 
   return (
-    <li className="group overflow-hidden rounded-xl border border-brown-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+    <li className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md">
       <Link to={`/movie/${movie.id}`} className="block">
-        <div className="relative aspect-[2/3] overflow-hidden bg-brown-100">
+        <div className="relative aspect-[2/3] overflow-hidden bg-neutral-100">
           {posterUrl ? (
             <img
               src={posterUrl}
@@ -163,7 +165,7 @@ function MovieItem({ movie }: { movie: MovieSummary }) {
               無海報
             </div>
           )}
-          <div className="absolute bottom-2 right-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-lavender-600">
+          <div className="absolute bottom-2 right-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-accent-600">
             ★ {formatRating(movie.voteAverage)}
           </div>
         </div>

@@ -7,11 +7,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants = {
   primary:
-    'bg-lavender-500 text-white hover:bg-lavender-600 focus:ring-lavender-200',
+    'bg-accent-500 text-white hover:bg-accent-600 focus:ring-accent-200',
   secondary:
-    'border border-brown-200 bg-white text-stone-700 hover:bg-brown-50 focus:ring-lavender-200',
+    'border border-neutral-200 bg-white text-stone-700 hover:bg-neutral-50 focus:ring-accent-200',
   ghost:
-    'bg-transparent text-stone-700 hover:bg-brown-100 focus:ring-lavender-200',
+    'bg-transparent text-stone-700 hover:bg-neutral-100 focus:ring-accent-200',
   danger: 'bg-red-600 text-white hover:bg-red-500 focus:ring-red-200',
 }
 

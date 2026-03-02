@@ -8,6 +8,7 @@ import { formatYear, formatRating } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
 import { LotteryModal } from '@/features/lottery/components/LotteryModal'
 import { EmptyState } from '@/shared/ui'
+import { ThemeToggle } from '@/design-system/ThemeToggle'
 
 const SORT_OPTIONS: { value: WatchlistSortOption; label: string }[] = [
   { value: 'addedAt-desc', label: '加入時間（新→舊）' },
@@ -39,10 +40,11 @@ export function WatchlistPage() {
             <button
               type="button"
               onClick={() => setIsLotteryOpen(true)}
-              className="rounded-xl bg-lavender-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
+              className="rounded-xl bg-accent-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-600"
             >
               🍿 今晚看什麼？抽籤
             </button>
+            <ThemeToggle />
             <label htmlFor="watchlist-sort" className="flex items-center gap-2">
               <span className="text-sm text-stone-600">排序：</span>
               <select
@@ -52,7 +54,7 @@ export function WatchlistPage() {
                 onChange={(e) =>
                   setSortOption(e.target.value as WatchlistSortOption)
                 }
-                className="rounded-lg border border-brown-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+                className="rounded-lg border border-neutral-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
               >
                 {SORT_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -75,10 +77,10 @@ export function WatchlistPage() {
           {sortedItems.map(({ movie }) => (
             <li
               key={movie.id}
-              className="group overflow-hidden rounded-xl border border-brown-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+              className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md"
             >
               <Link to={`/movie/${movie.id}`} className="block">
-                <div className="relative aspect-[2/3] overflow-hidden bg-brown-100">
+                <div className="relative aspect-[2/3] overflow-hidden bg-neutral-100">
                   {getImageUrl(movie.posterPath, 'w342') ? (
                     <img
                       src={getImageUrl(movie.posterPath, 'w342') ?? ''}
@@ -91,7 +93,7 @@ export function WatchlistPage() {
                       無海報
                     </div>
                   )}
-                  <div className="absolute bottom-2 right-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-lavender-600">
+                  <div className="absolute bottom-2 right-2 rounded-md bg-white/90 px-2 py-1 text-xs font-medium text-accent-600">
                     {formatRating(movie.voteAverage)} ★
                   </div>
                 </div>

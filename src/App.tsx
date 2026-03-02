@@ -28,8 +28,8 @@ function PageFallback() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
       <div className="animate-pulse space-y-4">
-        <div className="h-8 w-1/3 rounded bg-brown-100" />
-        <div className="h-4 w-2/3 rounded bg-brown-100" />
+        <div className="h-8 w-1/3 rounded bg-neutral-100" />
+        <div className="h-4 w-2/3 rounded bg-neutral-100" />
       </div>
     </div>
   )

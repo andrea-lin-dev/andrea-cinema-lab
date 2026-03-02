@@ -32,11 +32,11 @@ export function SearchBar({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           aria-label={placeholder}
-          className="w-full rounded-xl border border-brown-200 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 focus:border-lavender-500 focus:outline-none focus:ring-2 focus:ring-lavender-200"
+          className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
         />
         <button
           type="submit"
-          className="shrink-0 rounded-xl bg-lavender-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
+          className="shrink-0 rounded-xl bg-accent-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
         >
           {submitLabel}
         </button>

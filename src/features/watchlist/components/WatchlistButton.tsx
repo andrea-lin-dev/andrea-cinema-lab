@@ -29,7 +29,7 @@ export function WatchlistButton({
         type="button"
         onClick={handleClick}
         aria-label={inList ? '從待看清單移除' : '加入待看清單'}
-        className="shrink-0 rounded-full p-1.5 text-lg text-lavender-600 transition-colors hover:bg-lavender-100"
+        className="shrink-0 rounded-full p-1.5 text-lg text-accent-600 transition-colors hover:bg-accent-100"
       >
         {inList ? '★' : '☆'}
       </button>
@@ -42,8 +42,8 @@ export function WatchlistButton({
       onClick={handleClick}
       className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
         inList
-          ? 'border border-brown-200 bg-brown-50 text-stone-600 hover:bg-brown-100'
-          : 'bg-lavender-500 text-white hover:bg-lavender-600'
+          ? 'border border-neutral-200 bg-neutral-50 text-stone-600 hover:bg-neutral-100'
+          : 'bg-accent-500 text-white hover:bg-accent-600'
       }`}
     >
       {inList ? '已加入待看清單' : '加入待看清單'}

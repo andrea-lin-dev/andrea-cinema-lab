@@ -12,14 +12,14 @@ export function ErrorState({
   retryLabel = '重試',
 }: ErrorStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-brown-200 bg-white p-8 text-center shadow-sm">
+    <div className="flex flex-col items-center justify-center rounded-xl border border-neutral-200 bg-white p-8 text-center shadow-sm">
       <p className="text-lg font-semibold text-stone-800">{title}</p>
       <p className="mt-2 text-stone-600">{message}</p>
       {onRetry && (
         <button
           type="button"
           onClick={onRetry}
-          className="mt-4 rounded-lg bg-lavender-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lavender-600"
+          className="mt-4 rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-600"
         >
           {retryLabel}
         </button>

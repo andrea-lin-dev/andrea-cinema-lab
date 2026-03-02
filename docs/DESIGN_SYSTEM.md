@@ -36,8 +36,7 @@ getTheme()           // 取得目前主題
 
 ### 元件 class 建議
 
-- 新元件：優先使用 `accent-*`、`neutral-*`
-- 既有元件：`lavender-*`、`brown-*` 為 alias，會隨主題自動切換
+使用語意 token：`accent-*`（主色）、`neutral-*`（背景／邊框）
 
 ### 新增主題
 

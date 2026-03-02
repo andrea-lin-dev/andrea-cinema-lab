@@ -37,7 +37,7 @@ export function InfiniteLoaderSentinel({
   return (
     <div ref={sentinelRef} className="flex justify-center py-8">
       {isLoading && (
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-lavender-500 border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent-500 border-t-transparent" />
       )}
     </div>
   )

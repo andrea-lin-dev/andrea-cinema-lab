@@ -2,7 +2,6 @@
  * Design System — Theme tokens
  *
  * Semantic tokens: accent (primary/brand), neutral (background/surface)
- * Legacy aliases: lavender, brown — same as accent, neutral for migration.
  *
  * Themes:
  * - lavender: 紫色 + 淡咖啡色 (default)
@@ -10,7 +9,6 @@
  */
 
 @theme inline {
-  /* Semantic tokens */
   --color-accent-50: var(--ds-accent-50);
   --color-accent-100: var(--ds-accent-100);
   --color-accent-200: var(--ds-accent-200);
@@ -22,19 +20,6 @@
   --color-neutral-200: var(--ds-neutral-200);
   --color-neutral-500: var(--ds-neutral-500);
   --color-neutral-600: var(--ds-neutral-600);
-
-  /* Legacy aliases (use accent/neutral in new code) */
-  --color-lavender-50: var(--ds-accent-50);
-  --color-lavender-100: var(--ds-accent-100);
-  --color-lavender-200: var(--ds-accent-200);
-  --color-lavender-500: var(--ds-accent-500);
-  --color-lavender-600: var(--ds-accent-600);
-
-  --color-brown-50: var(--ds-neutral-50);
-  --color-brown-100: var(--ds-neutral-100);
-  --color-brown-200: var(--ds-neutral-200);
-  --color-brown-500: var(--ds-neutral-500);
-  --color-brown-600: var(--ds-neutral-600);
 }
 
 @layer base {

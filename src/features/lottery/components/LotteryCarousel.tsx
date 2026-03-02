@@ -79,7 +79,7 @@ export function LotteryCarousel({
       {/* 固定高度區塊：就決定是你了 - 避免按鈕位移 */}
       <div className="flex min-h-[2rem] items-center justify-center">
         {winner && (
-          <p className="text-lg font-semibold text-lavender-600">
+          <p className="text-lg font-semibold text-accent-600">
             就決定是你了！
           </p>
         )}
@@ -88,7 +88,7 @@ export function LotteryCarousel({
       {/* Poster - 未抽籤時顯示問號卡片，抽中後可點擊 */}
       <div className="relative overflow-hidden rounded-xl shadow-lg">
         {showPlaceholder ? (
-          <div className="flex aspect-[2/3] w-48 sm:w-56 items-center justify-center rounded-xl bg-brown-100">
+          <div className="flex aspect-[2/3] w-48 sm:w-56 items-center justify-center rounded-xl bg-neutral-100">
             <span className="text-6xl opacity-60" aria-hidden>
               ❓
             </span>
@@ -107,7 +107,7 @@ export function LotteryCarousel({
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-brown-200 text-stone-500">
+                <div className="flex h-full w-full items-center justify-center bg-neutral-200 text-stone-500">
                   無海報
                 </div>
               )}
@@ -122,7 +122,7 @@ export function LotteryCarousel({
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-brown-200 text-stone-500">
+              <div className="flex h-full w-full items-center justify-center bg-neutral-200 text-stone-500">
                 無海報
               </div>
             )}
@@ -141,7 +141,7 @@ export function LotteryCarousel({
           <Link
             to={`/movie/${winner.id}`}
             onClick={onCloseModal}
-            className="text-center text-xl font-bold text-stone-800 underline-offset-2 transition-colors hover:text-lavender-600 hover:underline"
+            className="text-center text-xl font-bold text-stone-800 underline-offset-2 transition-colors hover:text-accent-600 hover:underline"
           >
             {winner.title}
           </Link>
@@ -154,7 +154,7 @@ export function LotteryCarousel({
           <button
             type="button"
             onClick={handleReset}
-            className="rounded-xl bg-lavender-500 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-lavender-600"
+            className="rounded-xl bg-accent-500 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-accent-600"
           >
             重新抽籤
           </button>
@@ -163,7 +163,7 @@ export function LotteryCarousel({
             type="button"
             onClick={pick}
             disabled={isSpinning}
-            className="rounded-xl bg-lavender-500 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:bg-lavender-600 disabled:pointer-events-none disabled:opacity-70"
+            className="rounded-xl bg-accent-500 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:bg-accent-600 disabled:pointer-events-none disabled:opacity-70"
           >
             {isSpinning ? '抽籤中...' : '開始抽籤'}
           </button>

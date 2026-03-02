@@ -16,12 +16,12 @@ export function ThemeToggle() {
 
   return (
     <label htmlFor="theme-toggle" className="flex items-center gap-2">
-      <span className="sr-only">主題</span>
+      <span className="text-sm text-stone-600">主題：</span>
       <select
         id="theme-toggle"
         value={theme}
         onChange={(e) => setTheme(e.target.value as ThemeId)}
-        className="rounded-lg border border-neutral-200 bg-white px-2 py-1.5 text-xs text-stone-600 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200 sm:text-sm"
+        className="rounded-lg border border-neutral-200 bg-white px-2 py-2 text-sm text-stone-700 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
         aria-label="切換主題"
       >
         {THEMES.map((t) => (
