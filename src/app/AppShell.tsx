@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useWatchlistStore } from '@/features/watchlist/store/watchlistStore'
+import { ThemeToggle } from '@/design-system/ThemeToggle'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -27,6 +28,7 @@ export function AppShell({ children }: AppShellProps) {
             AL's Cinema Lab
           </Link>
           <nav className="flex items-center gap-2 sm:gap-6">
+            <ThemeToggle />
             <Link
               to="/"
               className={`text-xs font-medium transition-colors sm:text-base ${

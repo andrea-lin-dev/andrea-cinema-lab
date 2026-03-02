@@ -1,0 +1,71 @@
+/**
+ * Design System — Theme tokens
+ *
+ * Semantic tokens: accent (primary/brand), neutral (background/surface)
+ * Legacy aliases: lavender, brown — same as accent, neutral for migration.
+ *
+ * Themes:
+ * - lavender: 紫色 + 淡咖啡色 (default)
+ * - morandi: 莫蘭迪綠 + 淡灰色
+ */
+
+@theme inline {
+  /* Semantic tokens */
+  --color-accent-50: var(--ds-accent-50);
+  --color-accent-100: var(--ds-accent-100);
+  --color-accent-200: var(--ds-accent-200);
+  --color-accent-500: var(--ds-accent-500);
+  --color-accent-600: var(--ds-accent-600);
+
+  --color-neutral-50: var(--ds-neutral-50);
+  --color-neutral-100: var(--ds-neutral-100);
+  --color-neutral-200: var(--ds-neutral-200);
+  --color-neutral-500: var(--ds-neutral-500);
+  --color-neutral-600: var(--ds-neutral-600);
+
+  /* Legacy aliases (use accent/neutral in new code) */
+  --color-lavender-50: var(--ds-accent-50);
+  --color-lavender-100: var(--ds-accent-100);
+  --color-lavender-200: var(--ds-accent-200);
+  --color-lavender-500: var(--ds-accent-500);
+  --color-lavender-600: var(--ds-accent-600);
+
+  --color-brown-50: var(--ds-neutral-50);
+  --color-brown-100: var(--ds-neutral-100);
+  --color-brown-200: var(--ds-neutral-200);
+  --color-brown-500: var(--ds-neutral-500);
+  --color-brown-600: var(--ds-neutral-600);
+}
+
+@layer base {
+  /* Theme: 紫色 + 淡咖啡色 */
+  :root,
+  [data-theme='lavender'] {
+    --ds-accent-50: #f5f2f8;
+    --ds-accent-100: #e8e0f0;
+    --ds-accent-200: #d4c4e8;
+    --ds-accent-500: #9b8bb4;
+    --ds-accent-600: #7d6b94;
+
+    --ds-neutral-50: #f5f2ef;
+    --ds-neutral-100: #e8e0d8;
+    --ds-neutral-200: #d4c8b8;
+    --ds-neutral-500: #a89888;
+    --ds-neutral-600: #8a7a6a;
+  }
+
+  /* Theme: 莫蘭迪綠 + 淡灰色 */
+  [data-theme='morandi'] {
+    --ds-accent-50: #f0f5f0;
+    --ds-accent-100: #e0ebe0;
+    --ds-accent-200: #b8c9b8;
+    --ds-accent-500: #7a9b7a;
+    --ds-accent-600: #5c7a5c;
+
+    --ds-neutral-50: #f5f5f3;
+    --ds-neutral-100: #e8e8e4;
+    --ds-neutral-200: #d4d4d0;
+    --ds-neutral-500: #9ca39c;
+    --ds-neutral-600: #6b726b;
+  }
+}

@@ -1,22 +1,9 @@
 @import 'tailwindcss';
+@import './design-system/theme.css';
 
 @theme {
   --font-sans: 'DM Sans', 'Noto Sans TC', system-ui, sans-serif;
-  --font-display: 'Outfit', 'Noto Sans TC', system-ui, sans-serif;
-
-  /* 淡紫色 - muted lavender */
-  --color-lavender-50: #f5f2f8;
-  --color-lavender-100: #e8e0f0;
-  --color-lavender-200: #d4c4e8;
-  --color-lavender-500: #9b8bb4;
-  --color-lavender-600: #7d6b94;
-
-  /* 淡咖啡色 - muted brown */
-  --color-brown-50: #f5f2ef;
-  --color-brown-100: #e8e0d8;
-  --color-brown-200: #d4c8b8;
-  --color-brown-500: #a89888;
-  --color-brown-600: #8a7a6a;
+  --font-display: 'DM Sans', 'Noto Sans TC', system-ui, sans-serif;
 }
 
 @layer base {
