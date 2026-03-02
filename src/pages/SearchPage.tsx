@@ -13,7 +13,7 @@ import {
   SkeletonCard,
   InfiniteLoaderSentinel,
 } from '@/shared/ui'
-import { ThemeToggle } from '@/design-system/ThemeToggle'
+import { DeferredThemeToggle } from '@/design-system/DeferredThemeToggle'
 import type { MovieSummary, WatchlistSortOption } from '@/shared/types/domain'
 
 const SEARCH_SORT_OPTIONS: {
@@ -91,7 +91,7 @@ export function SearchPage() {
             submitLabel="搜尋電影"
           />
         </div>
-        <ThemeToggle />
+        <DeferredThemeToggle />
         {searchKeyword.length >= 2 && (
           <label
             htmlFor="search-sort"

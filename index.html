@@ -24,20 +24,13 @@
       content="搜尋電影、建立待看清單、抽籤決定今晚看什麼。幫你輕鬆管理想看的電影。"
     />
     <meta name="twitter:image" content="/fav.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media = 'all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
-      />
-    </noscript>
+    <!-- Theme: apply before first paint to avoid flash -->
+    <script>
+      (function(){
+        var t=localStorage.getItem('theme');
+        document.documentElement.setAttribute('data-theme',(t==='lavender'||t==='morandi')?t:'lavender');
+      })();
+    </script>
     <title>Andrea's Cinema Lab</title>
   </head>
   <body>

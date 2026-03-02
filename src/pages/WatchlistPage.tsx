@@ -8,7 +8,7 @@ import { formatYear, formatRating } from '@/shared/lib/formatters'
 import { WatchlistButton } from '@/features/watchlist/components/WatchlistButton'
 import { LotteryModal } from '@/features/lottery/components/LotteryModal'
 import { EmptyState } from '@/shared/ui'
-import { ThemeToggle } from '@/design-system/ThemeToggle'
+import { DeferredThemeToggle } from '@/design-system/DeferredThemeToggle'
 
 const SORT_OPTIONS: { value: WatchlistSortOption; label: string }[] = [
   { value: 'addedAt-desc', label: '加入時間（新→舊）' },
@@ -44,7 +44,7 @@ export function WatchlistPage() {
             >
               🍿 今晚看什麼？抽籤
             </button>
-            <ThemeToggle />
+            <DeferredThemeToggle />
             <label htmlFor="watchlist-sort" className="flex items-center gap-2">
               <span className="text-sm text-stone-600">排序：</span>
               <select

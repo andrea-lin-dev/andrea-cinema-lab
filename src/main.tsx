@@ -9,11 +9,6 @@ import App from '@/App'
   style.textContent = cssText
   document.head.appendChild(style)
 })(css)
-import { getTheme, setTheme } from '@/design-system'
-
-// Apply saved theme before first paint
-setTheme(getTheme())
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
