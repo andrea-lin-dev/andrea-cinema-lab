@@ -44,6 +44,7 @@ export function SearchPage() {
 
   const {
     movies,
+    schemaErrors,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -117,6 +118,19 @@ export function SearchPage() {
         )}
       </div>
 
+      {schemaErrors.length > 0 && (
+        <div
+          className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800"
+          role="alert"
+        >
+          <p className="font-medium">API Schema 驗證警告</p>
+          <ul className="mt-1 list-inside list-disc">
+            {schemaErrors.map((err, i) => (
+              <li key={i}>{err}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {searchKeyword.length < 2 ? (
         <EmptyState title="請至少輸入 2 個字元進行搜尋" />
       ) : isLoading ? (

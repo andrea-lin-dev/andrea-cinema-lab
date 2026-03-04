@@ -49,6 +49,14 @@ pnpm preview
 
 取得 API Key：<https://www.themoviedb.org/settings/api>
 
+### API Error Demo
+
+設定 `VITE_DEMO_API_ERROR=true` 可模擬 API 回傳錯誤格式，測試 schema 防禦：
+
+- **搜尋**：第 1 頁回傳 array 當 root（預期 object）→ 觸發 schema 驗證失敗、顯示 schemaErrors
+- **搜尋**：第 2 頁回傳 `results` 為 object（預期 array）→ schema 自動 fallback 成空陣列
+- **電影詳情**：credits 回傳 array 當 root（預期 `{ cast, crew }`）→ adapter fallback 成空 cast/crew
+
 ### Scripts
 
 | 指令              | 說明                |

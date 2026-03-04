@@ -28,9 +28,15 @@ export function useSearchMovies(
     return movies
   }, [query.data?.pages, sortOption])
 
+  const schemaErrors = useMemo(() => {
+    const errors = query.data?.pages.flatMap((p) => p.schemaErrors) ?? []
+    return [...new Set(errors)]
+  }, [query.data?.pages])
+
   return {
     ...query,
     movies: allMovies,
+    schemaErrors,
     hasMore:
       (query.data?.pages.at(-1)?.page ?? 0) <
       (query.data?.pages.at(-1)?.totalPages ?? 0),
