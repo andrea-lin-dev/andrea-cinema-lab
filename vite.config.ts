@@ -1,5 +1,4 @@
-/// <reference types="vitest/config" />
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
@@ -28,7 +27,24 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'node',
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'node',
+          include: ['**/*.test.ts'],
+          environment: 'node',
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'happy-dom',
+          include: ['**/*.test.tsx'],
+          environment: 'happy-dom',
+        },
+      },
+    ],
   },
   resolve: {
     alias: {
